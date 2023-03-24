@@ -212,18 +212,32 @@ const navigationConfig = [
   },
   {
     type: "groupHeader",
-    groupTitle: "Book Event",
+    groupTitle: " Event",
   },
-
   {
-    id: "bookEventList",
-    title: "Book Event List",
-    type: "item",
-    icon: <Icon.Box size={20} />,
-    permissions: ["admin", "editor"],
-    navLink: "/app/bookEvent/bookEventList",
+    id: "rashimanagement",
+    title: "Rashi Management",
+    type: "collapse",
+    icon: <Icon.BarChart2 size={20} />,
+    children: [
+      {
+        id: "eventList",
+        title: "Event List",
+        type: "item",
+        icon: <Icon.Box size={20} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/event/addEvent/EventList",
+      },
+      {
+        id: "bookEventList",
+        title: "Book Event List",
+        type: "item",
+        icon: <Icon.Box size={20} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/event/bookEvent/bookEventList",
+      },
+    ],
   },
-
   {
     type: "groupHeader",
     groupTitle: "Porduct Management",

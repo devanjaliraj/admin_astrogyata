@@ -35,15 +35,22 @@ const PayoutAdd = lazy(() => import("./views/apps/report/PayputAdd"));
 const PayoutEdit = lazy(() => import("./views/apps/report/PayoutEdit"));
 
 // event
-const BookEventList = lazy(() =>
-  import("./views/apps/bookEvent/BookEventList")
-);
-const AddBookEvent = lazy(() => import("./views/apps/bookEvent/AddBookEvent"));
-const EditBookEvent = lazy(() =>
-  import("./views/apps/bookEvent/EditBookEvent")
-);
+const EventList = lazy(() => import("./views/apps/event/addEvent/EventList"));
+const AddEvent = lazy(() => import("./views/apps/event/addEvent/AddEvent"));
 
-// orderr
+const BookEventList = lazy(() =>
+  import("./views/apps/event/bookEvent/BookEventList")
+);
+const AddBookEvent = lazy(() =>
+  import("./views/apps/event/bookEvent/AddBookEvent")
+);
+const EditBookEvent = lazy(() =>
+  import("./views/apps/event/bookEvent/EditBookEvent")
+);
+const ViewBookEvent = lazy(() =>
+  import("./views/apps/event/bookEvent/ViewBookEvent")
+);
+// order
 const AllOrderList = lazy(() =>
   import("./views/apps/ordermanage/AllOrderLList")
 );
@@ -1017,16 +1024,28 @@ class AppRouter extends React.Component {
             <AppRoute path="/app/report/payoutedit" component={PayoutEdit} />
             {/* Event */}
             <AppRoute
-              path="/app/bookEvent/bookEventList"
+              path="/app/event/addEvent/EventList"
+              component={EventList}
+            />
+            <AppRoute
+              path="/app/event/addEvent/AddEvent"
+              component={AddEvent}
+            />
+            <AppRoute
+              path="/app/event/bookEvent/bookEventList"
               component={BookEventList}
             />
             <AppRoute
-              path="/app/bookEvent/addBookEvent"
+              path="/app/event/bookEvent/addBookEvent"
               component={AddBookEvent}
             />
             <AppRoute
-              path="/app/bookEvent/editBookEvent"
+              path="/app/event/bookEvent/editBookEvent/:id"
               component={EditBookEvent}
+            />
+            <AppRoute
+              path="/app/event/bookEvent/viewBookEvent/:id"
+              component={ViewBookEvent}
             />
             {/* order */}
             <AppRoute

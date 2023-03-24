@@ -11,16 +11,18 @@ import {
   DropdownItem,
   DropdownToggle,
 } from "reactstrap";
-// import axiosConfig from "../../../axiosConfig";
+import ReactHtmlParser from "react-html-parser";
+
+import axiosConfig from "../../../../axiosConfig";
 // import axios from "axios";
-import { ContextLayout } from "../../../utility/context/Layout";
+import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
 //import classnames from "classnames";
-import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
-import "../../../assets/scss/pages/users.scss";
+import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
+import "../../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
-import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
+import Breadcrumbs from "../../../../components/@vuexy/breadCrumbs/BreadCrumb";
 
 class BookEventList extends React.Component {
   state = {
@@ -54,9 +56,7 @@ class BookEventList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div>
-              {/* <span>
-                {params.data.firstname} {params.data.lastname}
-              </span> */}
+              <span>{params.data.event_list?.event_name}</span>
             </div>
           );
         },
@@ -64,13 +64,13 @@ class BookEventList extends React.Component {
 
       {
         headerName: "Event Detail",
-        field: "astrologername",
+        field: "desc",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              {/* <span>{params.data.email}</span> */}
+              <span>{ReactHtmlParser(params.data.desc)}</span>
             </div>
           );
         },
@@ -78,40 +78,53 @@ class BookEventList extends React.Component {
 
       {
         headerName: "price OnLine",
-        field: "reason",
+        field: "price_online",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
-          return <div>{/* <span>{params.data.mobile}</span> */}</div>;
+          return (
+            <div>
+              <span>{params.data.price_online}</span>
+            </div>
+          );
         },
       },
 
       {
         headerName: "price OffLine",
-        field: "reason",
+        field: "price_offline",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
-          return <div>{/* <span>{params.data.mobile}</span> */}</div>;
+          return (
+            <div>
+              <span>{params.data.price_offline}</span>
+            </div>
+          );
         },
       },
 
-      {
-        headerName: "Slots",
-        field: "date",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return <div>{/* <span>{params.data.mobile}</span> */}</div>;
-        },
-      },
+      // {
+      //   headerName: "Slots",
+      //   field: "date",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return <div>{/* <span>{params.data.mobile}</span> */}</div>;
+      //   },
+      // },
       {
         headerName: "Time",
-        field: "reason",
+        field: "createdAt",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
-          return <div>{/* <span>{params.data.mobile}</span> */}</div>;
+          return (
+            <div>
+              {" "}
+              <span>{params.data.createdAt}</span>{" "}
+            </div>
+          );
         },
       },
 
@@ -128,11 +141,11 @@ class BookEventList extends React.Component {
                     className="mr-50"
                     size="25px"
                     color="green"
-                    // onClick={() =>
-                    //   history.push(
-                    //     `/app/userride/viewUserRide/${params.data._id}`
-                    //   )
-                    // }
+                    onClick={() =>
+                      history.push(
+                        `/app/event/bookEvent/viewBookEvent/${params.data._id}`
+                      )
+                    }
                   />
                 )}
               />
@@ -142,7 +155,11 @@ class BookEventList extends React.Component {
                     className="mr-50"
                     size="25px"
                     color="blue"
-                    // onClick={() => history.push("/app/userride/editUserRide")}
+                    onClick={() =>
+                      history.push(
+                        `/app/event/bookEvent/editBookEvent/${params.data._id}`
+                      )
+                    }
                   />
                 )}
               />
@@ -163,35 +180,25 @@ class BookEventList extends React.Component {
     ],
   };
   async componentDidMount() {
-    let { id } = this.props.match.params;
+    // let { id } = this.props.match.params;
 
-    // await axios
-    // .get(`http://3.108.185.7:4000/user/view_onecust/${id}`)
-    // .then((response) => {
-    //   let rowData = response.data.data;
-    //   console.log(rowData);
-    //   this.setState({ rowData });
-    // });
-
-    // await axios
-    //   // .get("http://3.108.185.7:4000/admin/allcustomer")
-    //   .then((response) => {
-    //     let rowData = response.data.data;
-    //     console.log(rowData);
-    //     this.setState({ rowData });
-    //   });
+    await axiosConfig.get(`/admin/get_adminevent`).then((response) => {
+      let rowData = response.data.data;
+      console.log(rowData);
+      this.setState({ rowData });
+    });
   }
 
   async runthisfunction(id) {
     console.log(id);
-    // await axios.get(`http://3.108.185.7:4000/admin/delcustomer/${id}`).then(
-    //   (response) => {
-    //     console.log(response);
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
+    await axiosConfig.get(`/admin/admin_dlt_event/${id}`).then(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
   onGridReady = (params) => {
     this.gridApi = params.api;
@@ -242,7 +249,7 @@ class BookEventList extends React.Component {
                         <Button
                           className=" btn btn-success float-right"
                           onClick={() =>
-                            history.push("/app/bookEvent/addBookEvent")
+                            history.push("/app/event/bookEvent/addBookEvent")
                           }
                         >
                           Add

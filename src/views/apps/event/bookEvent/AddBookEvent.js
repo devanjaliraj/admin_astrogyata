@@ -8,30 +8,30 @@ import {
   Input,
   Label,
   Button,
-  FormGroup,
+  CustomInput,
 } from "reactstrap";
-//import axios from "axios";
-import axiosConfig from "../../../axiosConfig";
-// import { useParams } from "react-router-dom";
-//import { ToastContainer, toast } from 'react-toastify';
+import axiosConfig from "../../../../axiosConfig";
 import "react-toastify/dist/ReactToastify.css";
 import { Route } from "react-router-dom";
-import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
+import Breadcrumbs from "../../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw } from "draft-js";
+import "../../../../assets/scss/plugins/extensions/editor.scss";
 import draftToHtml from "draftjs-to-html";
-
-import { data } from "jquery";
 import swal from "sweetalert";
-export class EditBookEvent extends Component {
+export class AddBookEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      category: "",
+      event_list: "",
+      price_online: "",
+      price_offline: "",
       desc: "",
       editorState: EditorState.createEmpty(),
+    };
+    this.state = {
+      eventN: [],
     };
   }
   uploadImageCallBack = (file) => {
@@ -59,57 +59,56 @@ export class EditBookEvent extends Component {
       desc: draftToHtml(convertToRaw(editorState.getCurrentContent())),
     });
   };
+  // changeHandler1 = (e) => {
+  //   this.setState({ status: e.target.value });
+  // };
 
-  //   componentDidMount() {
-  //     let { id } = this.props.match.params;
-  //     axiosConfig
-  //       .get(`/admin/getoneCategory/${id}`)
-  //       .then((response) => {
-  //         console.log(response);
-  //         this.setState({
-  //           title: response.data.data.title,
-  //           category: response.data.data.category,
-  //           desc: response.data.data.desc,
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
-  //   changeHandler1 = (e) => {
-  //     this.setState({ status: e.target.value });
-  //   };
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  async componentDidMount() {
+    axiosConfig
+      .get("/admin/EventListAdmin")
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          eventN: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
-  //   changeHandler = (e) => {
-  //     this.setState({ [e.target.name]: e.target.value });
-  //   };
-  //   submitHandler = (e) => {
-  //     e.preventDefault();
-  //     let { id } = this.props.match.params;
-  //     axiosConfig
-  //       .post(`admin/editCategory/${id}`, this.state)
-  //       .then((response) => {
-  //         console.log(response);
-  //         swal("Success!", "Submitted SuccessFull!", "success");
-  //         this.props.history.push("/app/horoscope/horoscopecategory");
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
+  submitHandler = (e) => {
+    e.preventDefault();
+
+    axiosConfig
+      .post("/admin/admin_Addevent", this.state)
+
+      .then((response) => {
+        console.log(response.data);
+
+        swal("Success!", "Submitted SuccessFull!", "success");
+        this.props.history.push("/app/event/bookEvent/bookEventList");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   render() {
     return (
       <div>
         <Breadcrumbs
           breadCrumbTitle="Add Book Event"
           breadCrumbParent=" home"
-          breadCrumbActive="Edit Book Event"
+          breadCrumbActive="Add Book Event"
         />
         <Card>
           <Row className="m-2">
             <Col>
               <h1 col-sm-6 className="float-left">
-                Edit Book Event
+                Add Book Event
               </h1>
             </Col>
             <Col>
@@ -117,7 +116,9 @@ export class EditBookEvent extends Component {
                 render={({ history }) => (
                   <Button
                     className=" btn btn-danger float-right"
-                    onClick={() => history.push("/app/bookEvent/bookEventList")}
+                    onClick={() =>
+                      history.push("/app/event/bookEvent/bookEventList")
+                    }
                   >
                     Back
                   </Button>
@@ -130,14 +131,21 @@ export class EditBookEvent extends Component {
               <Row>
                 <Col lg="6" md="6" sm="12" className="mb-2">
                   <Label> Event Title</Label>
-                  <Input
+                  <CustomInput
                     required
-                    type="text"
-                    name="title"
+                    type="select"
+                    name="event_list"
                     placeholder="Enter Title"
-                    // value={this.state.title}
-                    // onChange={this.changeHandler}
-                  ></Input>
+                    value={this.state.event_list}
+                    onChange={this.changeHandler}
+                  >
+                    <option>select Event</option>
+                    {this.state.eventN?.map((allEvent) => (
+                      <option value={allEvent?._id} key={allEvent?._id}>
+                        {allEvent?.event_name}
+                      </option>
+                    ))}
+                  </CustomInput>
                 </Col>
 
                 <Col lg="6" md="6" sm="12" className="mb-2">
@@ -145,10 +153,10 @@ export class EditBookEvent extends Component {
                   <Input
                     required
                     type="text"
-                    name="category"
-                    placeholder="Enter Category"
-                    // value={this.state.category}
-                    // onChange={this.changeHandler}
+                    name="price_online"
+                    placeholder="Enter Price Online"
+                    value={this.state.price_online}
+                    onChange={this.changeHandler}
                   ></Input>
                 </Col>
                 <Col lg="6" md="6" sm="12" className="mb-2">
@@ -156,13 +164,13 @@ export class EditBookEvent extends Component {
                   <Input
                     required
                     type="text"
-                    name="category"
-                    placeholder="Enter Category"
-                    // value={this.state.category}
-                    // onChange={this.changeHandler}
+                    name="price_offline"
+                    placeholder="Enter Price Offline"
+                    value={this.state.price_offline}
+                    onChange={this.changeHandler}
                   ></Input>
                 </Col>
-                <Col lg="6" md="6" sm="12" className="mb-2">
+                {/* <Col lg="6" md="6" sm="12" className="mb-2">
                   <Label>Slots</Label>
                   <Input
                     required
@@ -172,7 +180,7 @@ export class EditBookEvent extends Component {
                     // value={this.state.category}
                     // onChange={this.changeHandler}
                   ></Input>
-                </Col>
+                </Col> */}
                 <Col lg="12" md="12" sm="12" className="mb-2">
                   <Label>Event Detail</Label>
 
@@ -239,4 +247,4 @@ export class EditBookEvent extends Component {
     );
   }
 }
-export default EditBookEvent;
+export default AddBookEvent;
