@@ -20,7 +20,7 @@ import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import "../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
 
-class BundleOffer extends React.Component {
+class ChatList extends React.Component {
   state = {
     rowData: [],
     paginationPageSize: 20,
@@ -63,7 +63,7 @@ class BundleOffer extends React.Component {
       //   },
       // },
       {
-        headerName: "Coupon Code",
+        headerName: "Chat Code",
         field: "offer_code",
         filter: true,
         width: 150,
@@ -76,7 +76,7 @@ class BundleOffer extends React.Component {
         },
       },
       {
-        headerName: "Coupon Title",
+        headerName: "Chat Title",
         field: "CouponTitle",
         filter: true,
         width: 150,
@@ -264,9 +264,9 @@ class BundleOffer extends React.Component {
     return (
       <div>
         <Breadcrumbs
-          breadCrumbTitle="Coupons List"
+          breadCrumbTitle="Chat List"
           breadCrumbParent="Home"
-          breadCrumbActive="Coupons List"
+          breadCrumbActive="Chat List"
         />
 
         <Row className="app-user-list">
@@ -276,7 +276,7 @@ class BundleOffer extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 col-sm-6 className="float-left">
-                    Coupon List
+                    Chat List
                   </h1>
                 </Col>
                 <Col>
@@ -286,7 +286,7 @@ class BundleOffer extends React.Component {
                         className=" btn btn-success float-right"
                         onClick={() => history.push("/app/coupons/addcoupons")}
                       >
-                        Add New Coupons
+                        Add New Chat
                       </Button>
                     )}
                   />
@@ -392,4 +392,4 @@ class BundleOffer extends React.Component {
   }
 }
 
-export default BundleOffer;
+export default ChatList;

@@ -20,7 +20,7 @@ import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import "../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
 
-class BundleOffer extends React.Component {
+class StatusList extends React.Component {
   state = {
     rowData: [],
     paginationPageSize: 20,
@@ -392,4 +392,4 @@ class BundleOffer extends React.Component {
   }
 }
 
-export default BundleOffer;
+export default StatusList;

@@ -61,6 +61,10 @@ const WalletTransaction = lazy(() =>
 );
 const CustomWallet = lazy(() => import("./views/apps/wallet/CustomWallet"));
 
+//Withdraw//
+const WithdrawRequest = lazy(() =>
+  import("./views/apps/Withdraw/WithdrawRequest")
+);
 //Transaction history//
 const TransactionHistory = lazy(() =>
   import("./views/apps/transaction/TransactionHistory")
@@ -140,6 +144,9 @@ const CommissionAdd = lazy(() =>
 const CommissionEdit = lazy(() =>
   import("./views/apps/packagemanager/CommissionEdit")
 );
+const CommissionView = lazy(() =>
+  import("./views/apps/packagemanager/CommissionView")
+);
 
 //poojaPakage//
 const AddPackage = lazy(() => import("./views/apps/poojapackage/AddPackage"));
@@ -188,6 +195,10 @@ const ViewHoroscopeCategory = lazy(() =>
 // End Horoscope Category
 
 // Start Horoscopes
+
+// const HoroscopesList = lazy(() =>
+//   import("./views/apps/horoscopes/HoroscopesList")
+// );
 const HoroscopesList = lazy(() =>
   import("./views/apps/horoscopes/HoroscopesList")
 );
@@ -203,6 +214,7 @@ const ViewHoroscopes = lazy(() =>
 // End Horoscopes
 
 const UserChatList = lazy(() => import("./views/apps/chat/UserChatList"));
+const ChatList = lazy(() => import("./views/apps/chat/ChatList"));
 
 const AstrologerProduct = lazy(() =>
   import("./views/apps/productmanager/AstrologerProduct")
@@ -647,6 +659,7 @@ class AppRouter extends React.Component {
               component={ViewHoroscopes}
             />
             {/* Start Horoscopes*/}
+            <AppRoute path="/app/chat/chatList" component={ChatList} />
             <AppRoute
               path="/app/horoscopecategory/horoscopeCategoryList"
               component={HoroscopeCategoryList}
@@ -777,6 +790,10 @@ class AppRouter extends React.Component {
               component={CommissionEdit}
             />
             <AppRoute
+              path="/app/packagemanager/commissionview/:id"
+              component={CommissionView}
+            />
+            <AppRoute
               path="/app/packagemanager/packageoffer"
               component={PackageOffer}
             />
@@ -788,10 +805,6 @@ class AppRouter extends React.Component {
             <AppRoute
               path="/app/poojapackage/addPackage"
               component={AddPackage}
-            />
-            <AppRoute
-              path="/app/poojapackage/editPackage"
-              component={PackageOffer}
             />
             {/* prediction */}
             <AppRoute
@@ -1060,6 +1073,11 @@ class AppRouter extends React.Component {
             <AppRoute
               path="/app/wallet/walletcustom"
               component={CustomWallet}
+            />
+            {/* WithdrawRequest */}
+            <AppRoute
+              path="/app/withdraw/WithdrawRequest"
+              component={WithdrawRequest}
             />
             {/* Transaction history */}
             <AppRoute

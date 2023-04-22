@@ -77,10 +77,10 @@ class BookEventList extends React.Component {
       },
 
       {
-        headerName: "price OnLine",
+        headerName: "Price OnLine",
         field: "price_online",
         filter: true,
-        width: 200,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
@@ -91,10 +91,10 @@ class BookEventList extends React.Component {
       },
 
       {
-        headerName: "price OffLine",
+        headerName: "Price OffLine",
         field: "price_offline",
         filter: true,
-        width: 200,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
