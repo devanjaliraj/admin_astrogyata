@@ -49,7 +49,7 @@ class BookEventList extends React.Component {
       },
 
       {
-        headerName: "Event Title",
+        headerName: "Pooja Type",
         field: "customername",
         filter: true,
         width: 200,
@@ -63,21 +63,21 @@ class BookEventList extends React.Component {
       },
 
       {
-        headerName: "Event Detail",
-        field: "desc",
+        headerName: "Name of Pooja",
+        field: "price_offline",
         filter: true,
-        width: 200,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <span>{ReactHtmlParser(params.data.desc)}</span>
+            <div>
+              <span>{params.data.price_offline}</span>
             </div>
           );
         },
       },
 
       {
-        headerName: "Price OnLine",
+        headerName: "Duration",
         field: "price_online",
         filter: true,
         width: 150,
@@ -91,30 +91,21 @@ class BookEventList extends React.Component {
       },
 
       {
-        headerName: "Price OffLine",
-        field: "price_offline",
+        headerName: "About Puja",
+        field: "desc",
         filter: true,
-        width: 150,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
-            <div>
-              <span>{params.data.price_offline}</span>
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{ReactHtmlParser(params.data.desc)}</span>
             </div>
           );
         },
       },
 
-      // {
-      //   headerName: "Slots",
-      //   field: "date",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return <div>{/* <span>{params.data.mobile}</span> */}</div>;
-      //   },
-      // },
       {
-        headerName: "Time",
+        headerName: "Benefits",
         field: "createdAt",
         filter: true,
         width: 200,

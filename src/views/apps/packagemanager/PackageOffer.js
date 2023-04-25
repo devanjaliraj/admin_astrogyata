@@ -196,7 +196,7 @@ class PackageOffer extends React.Component {
     //   });
 
     await axios
-      .get("http://43.205.241.133:4000/admin/getPackage")
+      .get("http://13.234.48.35:8000/admin/getPackage")
       .then((response) => {
         let rowData = response.data.data;
         this.setState({ rowData });
@@ -281,14 +281,14 @@ class PackageOffer extends React.Component {
                             {this.gridApi
                               ? this.state.currenPageSize
                               : "" * this.state.getPageSize -
-                              (this.state.getPageSize - 1)}{" "}
+                                (this.state.getPageSize - 1)}{" "}
                             -{" "}
                             {this.state.rowData.length -
                               this.state.currenPageSize *
-                              this.state.getPageSize >
-                              0
+                                this.state.getPageSize >
+                            0
                               ? this.state.currenPageSize *
-                              this.state.getPageSize
+                                this.state.getPageSize
                               : this.state.rowData.length}{" "}
                             of {this.state.rowData.length}
                             <ChevronDown className="ml-50" size={15} />

@@ -130,7 +130,7 @@ export class AddBookEvent extends Component {
             <Form className="m-1" onSubmit={this.submitHandler}>
               <Row>
                 <Col lg="6" md="6" sm="12" className="mb-2">
-                  <Label> Event Title</Label>
+                  <Label> Pooja Type</Label>
                   <CustomInput
                     required
                     type="select"
@@ -149,7 +149,7 @@ export class AddBookEvent extends Component {
                 </Col>
 
                 <Col lg="6" md="6" sm="12" className="mb-2">
-                  <Label>Price OnLine</Label>
+                  <Label>Name of Pooja </Label>
                   <Input
                     required
                     type="text"
@@ -160,7 +160,7 @@ export class AddBookEvent extends Component {
                   ></Input>
                 </Col>
                 <Col lg="6" md="6" sm="12" className="mb-2">
-                  <Label>Price Offline</Label>
+                  <Label>Duration</Label>
                   <Input
                     required
                     type="text"
@@ -170,19 +170,9 @@ export class AddBookEvent extends Component {
                     onChange={this.changeHandler}
                   ></Input>
                 </Col>
-                {/* <Col lg="6" md="6" sm="12" className="mb-2">
-                  <Label>Slots</Label>
-                  <Input
-                    required
-                    type="text"
-                    name="category"
-                    placeholder="Enter Category"
-                    // value={this.state.category}
-                    // onChange={this.changeHandler}
-                  ></Input>
-                </Col> */}
+
                 <Col lg="12" md="12" sm="12" className="mb-2">
-                  <Label>Event Detail</Label>
+                  <Label>About puja</Label>
 
                   <br />
 
@@ -203,6 +193,17 @@ export class AddBookEvent extends Component {
                       },
                     }}
                   />
+                </Col>
+                <Col lg="6" md="6" sm="12" className="mb-2">
+                  <Label>Benefits</Label>
+                  <Input
+                    required
+                    type="text"
+                    name="category"
+                    placeholder="Enter Category"
+                    // value={this.state.category}
+                    // onChange={this.changeHandler}
+                  ></Input>
                 </Col>
               </Row>
 
