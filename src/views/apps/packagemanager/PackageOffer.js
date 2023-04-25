@@ -50,13 +50,16 @@ class PackageOffer extends React.Component {
         headerName: "Thumnail Image",
         field: "thumnail",
         filter: true,
-        width: 200,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>
-                {params.data.firstname} {params.data.lastname}
-              </span>
+              <img
+                src={params.data.image}
+                alt="Thumnnail_Image_missing"
+                width={50}
+                height={50}
+              />
             </div>
           );
         },
@@ -66,41 +69,52 @@ class PackageOffer extends React.Component {
         headerName: "Title",
         field: "title",
         filter: true,
-        width: 200,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>
-                {params.data.firstname} {params.data.lastname}
-              </span>
+              <span>{params.data.title}</span>
             </div>
           );
         },
       },
 
-      {
-        headerName: "Description",
-        field: "description	",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.email}</span>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Description",
+      //   field: "description	",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <span>{params.data.mrp_price}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
 
       {
         headerName: "Amount",
+        field: "time",
+        filter: true,
+        width: 100,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.mrp_price}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Offer Price",
         field: "time",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.mobile}</span>
+              <span>{params.data.offer_price}</span>
             </div>
           );
         },
@@ -110,11 +124,11 @@ class PackageOffer extends React.Component {
         headerName: "Status",
         field: "dateofregister",
         filter: true,
-        width: 200,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.mobile}</span>
+              <span>true</span>
             </div>
           );
         },
@@ -135,7 +149,7 @@ class PackageOffer extends React.Component {
                     color="green"
                     onClick={() =>
                       history.push(
-                        `/app/userride/viewUserRide/${params.data._id}`
+                        `/app/packagemanager/packageofferViewOne/${params.data._id}`
                       )
                     }
                   />
@@ -147,7 +161,11 @@ class PackageOffer extends React.Component {
                     className="mr-50"
                     size="25px"
                     color="blue"
-                    onClick={() => history.push("/app/userride/editUserRide")}
+                    onClick={() =>
+                      history.push(
+                        `/app/userride/editUserRide/${params.data._id}`
+                      )
+                    }
                   />
                 )}
               />
@@ -169,7 +187,6 @@ class PackageOffer extends React.Component {
   };
   async componentDidMount() {
     let { id } = this.props.match.params;
-    console.log("idddd", this.props.match.params);
     // await axios
     //   .get(`http://3.108.185.7:4000/user/view_onecust/${id}`)
     //   .then((response) => {
@@ -179,10 +196,9 @@ class PackageOffer extends React.Component {
     //   });
 
     await axios
-      .get("http://3.108.185.7:4000/admin/allcustomer")
+      .get("http://43.205.241.133:4000/admin/getPackage")
       .then((response) => {
         let rowData = response.data.data;
-        console.log("54dd5", rowData);
         this.setState({ rowData });
       });
   }
@@ -222,137 +238,135 @@ class PackageOffer extends React.Component {
   render() {
     const { rowData, columnDefs, defaultColDef } = this.state;
     return (
-      console.log(rowData),
-      (
-        <div>
-          <Breadcrumbs
-            breadCrumbTitle="All Package"
-            breadCrumbParent="Home"
-            breadCrumbActive="All Package"
-          />
+      // console.log(rowData),
+      <div>
+        <Breadcrumbs
+          breadCrumbTitle="All Package"
+          breadCrumbParent="Home"
+          breadCrumbActive="All Package"
+        />
 
-          <Row className="app-user-list">
-            <Col sm="12"></Col>
-            <Col sm="12">
-              <Card>
-                <Row className="m-2">
-                  <Col>
-                    <h1 sm="6" className="float-left">
-                      All Package
-                    </h1>
-                  </Col>
-                  <Col>
-                    <Route
-                      render={({ history }) => (
-                        <Button
-                          className=" btn btn-success float-right"
-                          onClick={() =>
-                            history.push("/app/poojapackage/addpackage")
-                          }
-                        >
-                          Add New
-                        </Button>
-                      )}
-                    />
-                  </Col>
-                </Row>
-                <CardBody>
-                  {this.state.rowData === null ? null : (
-                    <div className="ag-theme-material w-100 my-2 ag-grid-table">
-                      <div className="d-flex flex-wrap justify-content-between align-items-center">
-                        <div className="mb-1">
-                          <UncontrolledDropdown className="p-1 ag-dropdown">
-                            <DropdownToggle tag="div">
-                              {this.gridApi
-                                ? this.state.currenPageSize
-                                : "" * this.state.getPageSize -
-                                  (this.state.getPageSize - 1)}{" "}
-                              -{" "}
-                              {this.state.rowData.length -
-                                this.state.currenPageSize *
-                                  this.state.getPageSize >
+        <Row className="app-user-list">
+          <Col sm="12"></Col>
+          <Col sm="12">
+            <Card>
+              <Row className="m-2">
+                <Col>
+                  <h1 sm="6" className="float-left">
+                    All Package
+                  </h1>
+                </Col>
+                <Col>
+                  <Route
+                    render={({ history }) => (
+                      <Button
+                        className=" btn btn-success float-right"
+                        onClick={() =>
+                          history.push("/app/poojapackage/addpackage")
+                        }
+                      >
+                        Add New
+                      </Button>
+                    )}
+                  />
+                </Col>
+              </Row>
+              <CardBody>
+                {this.state.rowData === null ? null : (
+                  <div className="ag-theme-material w-100 my-2 ag-grid-table">
+                    <div className="d-flex flex-wrap justify-content-between align-items-center">
+                      <div className="mb-1">
+                        <UncontrolledDropdown className="p-1 ag-dropdown">
+                          <DropdownToggle tag="div">
+                            {this.gridApi
+                              ? this.state.currenPageSize
+                              : "" * this.state.getPageSize -
+                              (this.state.getPageSize - 1)}{" "}
+                            -{" "}
+                            {this.state.rowData.length -
+                              this.state.currenPageSize *
+                              this.state.getPageSize >
                               0
-                                ? this.state.currenPageSize *
-                                  this.state.getPageSize
-                                : this.state.rowData.length}{" "}
-                              of {this.state.rowData.length}
-                              <ChevronDown className="ml-50" size={15} />
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                              <DropdownItem
-                                tag="div"
-                                onClick={() => this.filterSize(20)}
-                              >
-                                20
-                              </DropdownItem>
-                              <DropdownItem
-                                tag="div"
-                                onClick={() => this.filterSize(50)}
-                              >
-                                50
-                              </DropdownItem>
-                              <DropdownItem
-                                tag="div"
-                                onClick={() => this.filterSize(100)}
-                              >
-                                100
-                              </DropdownItem>
-                              <DropdownItem
-                                tag="div"
-                                onClick={() => this.filterSize(134)}
-                              >
-                                134
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </div>
-                        <div className="d-flex flex-wrap justify-content-between mb-1">
-                          <div className="table-input mr-1">
-                            <Input
-                              placeholder="search..."
-                              onChange={(e) =>
-                                this.updateSearchQuery(e.target.value)
-                              }
-                              value={this.state.value}
-                            />
-                          </div>
-                          <div className="export-btn">
-                            <Button.Ripple
-                              color="primary"
-                              onClick={() => this.gridApi.exportDataAsCsv()}
+                              ? this.state.currenPageSize *
+                              this.state.getPageSize
+                              : this.state.rowData.length}{" "}
+                            of {this.state.rowData.length}
+                            <ChevronDown className="ml-50" size={15} />
+                          </DropdownToggle>
+                          <DropdownMenu right>
+                            <DropdownItem
+                              tag="div"
+                              onClick={() => this.filterSize(20)}
                             >
-                              Export as CSV
-                            </Button.Ripple>
-                          </div>
+                              20
+                            </DropdownItem>
+                            <DropdownItem
+                              tag="div"
+                              onClick={() => this.filterSize(50)}
+                            >
+                              50
+                            </DropdownItem>
+                            <DropdownItem
+                              tag="div"
+                              onClick={() => this.filterSize(100)}
+                            >
+                              100
+                            </DropdownItem>
+                            <DropdownItem
+                              tag="div"
+                              onClick={() => this.filterSize(134)}
+                            >
+                              134
+                            </DropdownItem>
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
+                      </div>
+                      <div className="d-flex flex-wrap justify-content-between mb-1">
+                        <div className="table-input mr-1">
+                          <Input
+                            placeholder="search..."
+                            onChange={(e) =>
+                              this.updateSearchQuery(e.target.value)
+                            }
+                            value={this.state.value}
+                          />
+                        </div>
+                        <div className="export-btn">
+                          <Button.Ripple
+                            color="primary"
+                            onClick={() => this.gridApi.exportDataAsCsv()}
+                          >
+                            Export as CSV
+                          </Button.Ripple>
                         </div>
                       </div>
-                      <ContextLayout.Consumer>
-                        {(context) => (
-                          <AgGridReact
-                            gridOptions={{}}
-                            rowSelection="multiple"
-                            defaultColDef={defaultColDef}
-                            columnDefs={columnDefs}
-                            rowData={rowData}
-                            onGridReady={this.onGridReady}
-                            colResizeDefault={"shift"}
-                            animateRows={true}
-                            floatingFilter={false}
-                            pagination={true}
-                            paginationPageSize={this.state.paginationPageSize}
-                            pivotPanelShow="always"
-                            enableRtl={context.state.direction === "rtl"}
-                          />
-                        )}
-                      </ContextLayout.Consumer>
                     </div>
-                  )}
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      )
+                    <ContextLayout.Consumer>
+                      {(context) => (
+                        <AgGridReact
+                          gridOptions={{}}
+                          rowSelection="multiple"
+                          defaultColDef={defaultColDef}
+                          columnDefs={columnDefs}
+                          rowData={rowData}
+                          onGridReady={this.onGridReady}
+                          colResizeDefault={"shift"}
+                          animateRows={true}
+                          floatingFilter={false}
+                          pagination={true}
+                          paginationPageSize={this.state.paginationPageSize}
+                          pivotPanelShow="always"
+                          enableRtl={context.state.direction === "rtl"}
+                        />
+                      )}
+                    </ContextLayout.Consumer>
+                  </div>
+                )}
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </div>
     );
   }
 }

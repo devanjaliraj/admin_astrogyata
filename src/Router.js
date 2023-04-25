@@ -133,6 +133,9 @@ const EditPlan = lazy(() => import("./views/apps/packagemanager/EditPlan"));
 const PackageOffer = lazy(() =>
   import("./views/apps/packagemanager/PackageOffer")
 );
+const PackageOfferViewOne = lazy(() =>
+  import("./views/apps/packagemanager/PackageOfferViewOne")
+);
 const UserRecharge = lazy(() =>
   import("./views/apps/packagemanager/UserRecharge")
 );
@@ -796,6 +799,10 @@ class AppRouter extends React.Component {
             <AppRoute
               path="/app/packagemanager/packageoffer"
               component={PackageOffer}
+            />
+            <AppRoute
+              path="/app/packagemanager/packageofferViewOne/:id"
+              component={PackageOfferViewOne}
             />
             {/* poojapackage */}
             <AppRoute
