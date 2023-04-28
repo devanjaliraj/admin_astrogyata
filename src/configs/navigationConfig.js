@@ -216,13 +216,21 @@ const navigationConfig = [
   },
   {
     id: "rashimanagement",
-    title: "Rashi Management",
+    title: "Book Puja",
     type: "collapse",
     icon: <Icon.BarChart2 size={20} />,
     children: [
       {
+        id: "bannerPoojaList",
+        title: "Banner Pooja List",
+        type: "item",
+        icon: <Icon.Box size={20} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/event/bennerPooja/bannerPoojaList",
+      },
+      {
         id: "eventList",
-        title: "Event List",
+        title: "Pooja type List",
         type: "item",
         icon: <Icon.Box size={20} />,
         permissions: ["admin", "editor"],
@@ -230,7 +238,7 @@ const navigationConfig = [
       },
       {
         id: "bookEventList",
-        title: "Book Event List",
+        title: "Pooja List",
         type: "item",
         icon: <Icon.Box size={20} />,
         permissions: ["admin", "editor"],
@@ -325,6 +333,15 @@ const navigationConfig = [
     icon: <Icon.MessageCircle size={20} />,
     permissions: ["admin", "editor"],
     navLink: "/app/chatintakeform/chatintakelist",
+  },
+
+  {
+    id: "youTubeVideoList",
+    title: "Add Youtube Video",
+    type: "item",
+    icon: <Icon.Video size={20} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/youtube/youTubeVideoList",
   },
 
   // {

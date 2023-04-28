@@ -46,14 +46,14 @@ class EventList extends React.Component {
       },
 
       {
-        headerName: "Event Name",
-        field: "customername",
+        headerName: "Pooja Type",
+        field: "pooja_name",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.event_name}</span>
+              <span>{params.data.pooja_name}</span>
             </div>
           );
         },
@@ -126,7 +126,7 @@ class EventList extends React.Component {
   async componentDidMount() {
     // let { id } = this.props.match.params;
 
-    await axiosConfig.get(`/admin/EventListAdmin`).then((response) => {
+    await axiosConfig.get(`/admin/admin_poojaList`).then((response) => {
       let rowData = response.data.data;
       console.log(rowData);
       this.setState({ rowData });
@@ -172,9 +172,9 @@ class EventList extends React.Component {
       (
         <div>
           <Breadcrumbs
-            breadCrumbTitle="Event"
+            breadCrumbTitle="Puja"
             breadCrumbParent="Home"
-            breadCrumbActive="  Event List"
+            breadCrumbActive="Puja List"
           />
 
           <Row className="app-user-list">
@@ -184,7 +184,7 @@ class EventList extends React.Component {
                 <Row className="m-2">
                   <Col>
                     <h1 sm="6" className="float-left">
-                      Event List
+                      Puja List
                     </h1>
                   </Col>
                   <Col>

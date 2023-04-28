@@ -11,20 +11,17 @@ import {
   DropdownItem,
   DropdownToggle,
 } from "reactstrap";
-import ReactHtmlParser from "react-html-parser";
-
-import axiosConfig from "../../../../axiosConfig";
+import axiosConfig from "../../../axiosConfig";
 // import axios from "axios";
-import { ContextLayout } from "../../../../utility/context/Layout";
+import { ContextLayout } from "../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
-import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
-//import classnames from "classnames";
-import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
-import "../../../../assets/scss/pages/users.scss";
+import { Edit, Trash2, ChevronDown } from "react-feather";
+import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
+import "../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
-import Breadcrumbs from "../../../../components/@vuexy/breadCrumbs/BreadCrumb";
+import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 
-class BookEventList extends React.Component {
+class YoutubeVideoList extends React.Component {
   state = {
     rowData: [],
     paginationPageSize: 20,
@@ -43,165 +40,35 @@ class BookEventList extends React.Component {
         field: "node.rowIndex + 1",
         width: 100,
         filter: true,
+        // checkboxSelection: true,
+        // headerCheckboxSelectionFilteredOnly: true,
+        // headerCheckboxSelection: true,
       },
 
       {
-        headerName: "Name of Pooja",
-        field: "customername",
+        headerName: "YouTube Link",
+        field: "youtube_link",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.pooja_type?.pooja_name}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Image",
-        field: "poojaimg",
-        filter: false,
-        width: 120,
-        setColumnVisible: false,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              {params.data.poojaimg.map((i) => (
-                <img
-                  className=" rounded-circle  mr-3"
-                  src={i}
-                  alt="user avatar"
-                  height="40"
-                  width="40"
-                />
-              ))}
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Pooja Price",
-        field: "pooja_price",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.pooja_price}</span>
+              <span>{params.data.youtube_link}</span>
             </div>
           );
         },
       },
 
       {
-        headerName: "About Puja",
-        field: "desc",
+        headerName: "Time",
+        field: "createdAt",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <span>{ReactHtmlParser(params.data.desc)}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "City",
-        field: "city",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
             <div>
-              <span>{params.data.city}</span>
-            </div>
-          );
-        },
-      },
-
-      {
-        headerName: "Location  ",
-        field: "location",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.location}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Current Location  ",
-        field: "fullfill_location",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.fullfill_location}</span>
-            </div>
-          );
-        },
-      },
-
-      {
-        headerName: "Benefits  ",
-        field: "benefits",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.benefits}</span>
-            </div>
-          );
-        },
-      },
-
-      {
-        headerName: "Duration  ",
-        field: "duration",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.duration}</span>
-            </div>
-          );
-        },
-      },
-
-      {
-        headerName: "Time Slot  ",
-        field: "time_slots",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.time_slots}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Live Streaming",
-        field: "liveStreaming",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return params.data.liveStreaming === true ? (
-            <div className="badge badge-pill badge-success">
-              <span>{"Available"}</span>
-            </div>
-          ) : (
-            <div className="badge badge-pill badge-warning">
-              <span>{"Unavailable"}</span>
+              {" "}
+              <span>{params.data.createdAt}</span>{" "}
             </div>
           );
         },
@@ -214,7 +81,7 @@ class BookEventList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              <Route
+              {/* <Route
                 render={({ history }) => (
                   <Eye
                     className="mr-50"
@@ -222,26 +89,24 @@ class BookEventList extends React.Component {
                     color="green"
                     onClick={() =>
                       history.push(
-                        `/app/event/bookEvent/viewBookEvent/${params.data._id}`
+                        `/app/userride/viewUserRide/${params.data._id}`
                       )
                     }
                   />
                 )}
-              />
-              <Route
+              /> */}
+              {/* <Route
                 render={({ history }) => (
                   <Edit
                     className="mr-50"
                     size="25px"
                     color="blue"
                     onClick={() =>
-                      history.push(
-                        `/app/event/bookEvent/editBookEvent/${params.data._id}`
-                      )
+                      history.push("/app/event/addEvent/editEvent")
                     }
                   />
                 )}
-              />
+              /> */}
               <Trash2
                 className="mr-50"
                 size="25px"
@@ -261,7 +126,7 @@ class BookEventList extends React.Component {
   async componentDidMount() {
     // let { id } = this.props.match.params;
 
-    await axiosConfig.get(`/admin/get_adminevent`).then((response) => {
+    await axiosConfig.get(`/admin/video_list`).then((response) => {
       let rowData = response.data.data;
       console.log(rowData);
       this.setState({ rowData });
@@ -270,7 +135,7 @@ class BookEventList extends React.Component {
 
   async runthisfunction(id) {
     console.log(id);
-    await axiosConfig.get(`/admin/admin_dlt_event/${id}`).then(
+    await axiosConfig.get(`/admin/dlt_video/${id}`).then(
       (response) => {
         console.log(response);
       },
@@ -307,9 +172,9 @@ class BookEventList extends React.Component {
       (
         <div>
           <Breadcrumbs
-            breadCrumbTitle="Puja Type"
+            breadCrumbTitle="YouTube Video"
             breadCrumbParent="Home"
-            breadCrumbActive="Puja Type List"
+            breadCrumbActive="YouTube Video List"
           />
 
           <Row className="app-user-list">
@@ -319,7 +184,7 @@ class BookEventList extends React.Component {
                 <Row className="m-2">
                   <Col>
                     <h1 sm="6" className="float-left">
-                      Puja Type List
+                      YouTube Video List
                     </h1>
                   </Col>
                   <Col>
@@ -328,7 +193,7 @@ class BookEventList extends React.Component {
                         <Button
                           className=" btn btn-success float-right"
                           onClick={() =>
-                            history.push("/app/event/bookEvent/addBookEvent")
+                            history.push("/app/youtube/addYouTubeVideo")
                           }
                         >
                           Add
@@ -437,4 +302,4 @@ class BookEventList extends React.Component {
     );
   }
 }
-export default BookEventList;
+export default YoutubeVideoList;

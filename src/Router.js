@@ -34,7 +34,21 @@ const PayoutList = lazy(() => import("./views/apps/report/PayoutList"));
 const PayoutAdd = lazy(() => import("./views/apps/report/PayputAdd"));
 const PayoutEdit = lazy(() => import("./views/apps/report/PayoutEdit"));
 
+// youtube Video
+const YouTubeVideoList = lazy(() =>
+  import("./views/apps/youtube/YouTubeVideoList")
+);
+const AddYouTubeVideo = lazy(() =>
+  import("./views/apps/youtube/AddYouTubeVideo")
+);
+
 // event
+const BannerPoojaList = lazy(() =>
+  import("./views/apps/event/bennerPooja/BannerPoojaList")
+);
+const AddBannerPooja = lazy(() =>
+  import("./views/apps/event/bennerPooja/AddBannerPooja")
+);
 const EventList = lazy(() => import("./views/apps/event/addEvent/EventList"));
 const AddEvent = lazy(() => import("./views/apps/event/addEvent/AddEvent"));
 
@@ -1042,7 +1056,24 @@ class AppRouter extends React.Component {
             <AppRoute path="/app/report/payoutlist" component={PayoutList} />
             <AppRoute path="/app/report/payoutadd" component={PayoutAdd} />
             <AppRoute path="/app/report/payoutedit" component={PayoutEdit} />
+            {/* youtube */}
+            <AppRoute
+              path="/app/youtube/youTubeVideoList"
+              component={YouTubeVideoList}
+            />
+            <AppRoute
+              path="/app/youtube/addYouTubeVideo"
+              component={AddYouTubeVideo}
+            />
             {/* Event */}
+            <AppRoute
+              path="/app/event/bennerPooja/bannerPoojaList"
+              component={BannerPoojaList}
+            />
+            <AppRoute
+              path="/app/event/bennerPooja/addBannerPooja"
+              component={AddBannerPooja}
+            />
             <AppRoute
               path="/app/event/addEvent/EventList"
               component={EventList}

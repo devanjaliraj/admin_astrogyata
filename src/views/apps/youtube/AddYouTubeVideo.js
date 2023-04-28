@@ -9,19 +9,19 @@ import {
   Label,
   Button,
 } from "reactstrap";
-import axiosConfig from "../../../../axiosConfig";
+import axiosConfig from "../../../axiosConfig";
 import "react-toastify/dist/ReactToastify.css";
 import { Route } from "react-router-dom";
-import Breadcrumbs from "../../../../components/@vuexy/breadCrumbs/BreadCrumb";
+import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import "../../../../assets/scss/plugins/extensions/editor.scss";
+import "../../../assets/scss/plugins/extensions/editor.scss";
 
 import swal from "sweetalert";
-export class AddEvent extends Component {
+export class AddYouTubeVideo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pooja_name: "",
+      youtube_link: "",
     };
   }
   changeHandler = (e) => {
@@ -31,13 +31,13 @@ export class AddEvent extends Component {
     e.preventDefault();
 
     axiosConfig
-      .post("/admin/add_poojaList", this.state)
+      .post("/admin/video", this.state)
 
       .then((response) => {
         console.log(response.data);
 
         swal("Success!", "Submitted SuccessFull!", "success");
-        this.props.history.push("/app/event/addEvent/eventList");
+        this.props.history.push("/app/youtube/youTubeVideoList");
       })
       .catch((error) => {
         console.log(error);
@@ -47,15 +47,15 @@ export class AddEvent extends Component {
     return (
       <div>
         <Breadcrumbs
-          breadCrumbTitle="Add  Puja"
+          breadCrumbTitle=" YouTube Video"
           breadCrumbParent=" home"
-          breadCrumbActive="Add  Puja"
+          breadCrumbActive="Add  YouTube Video"
         />
         <Card>
           <Row className="m-2">
             <Col>
               <h1 col-sm-6 className="float-left">
-                Add Puja
+                Add Event
               </h1>
             </Col>
             <Col>
@@ -64,7 +64,7 @@ export class AddEvent extends Component {
                   <Button
                     className=" btn btn-danger float-right"
                     onClick={() =>
-                      history.push("/app/event/addEvent/eventList")
+                      history.push("/app/youtube/youTubeVideoList")
                     }
                   >
                     Back
@@ -77,13 +77,13 @@ export class AddEvent extends Component {
             <Form className="m-1" onSubmit={this.submitHandler}>
               <Row>
                 <Col lg="6" md="6" sm="12" className="mb-2">
-                  <Label> Pooja Type </Label>
+                  <Label>YouTube ID</Label>
                   <Input
                     required
                     type="text"
-                    name="pooja_name"
-                    placeholder="Enter Pooja Name"
-                    value={this.state.pooja_name}
+                    name="youtube_link"
+                    placeholder="Enter YouTube ID"
+                    value={this.state.youtube_link}
                     onChange={this.changeHandler}
                   ></Input>
                 </Col>
@@ -142,4 +142,4 @@ export class AddEvent extends Component {
     );
   }
 }
-export default AddEvent;
+export default AddYouTubeVideo;
