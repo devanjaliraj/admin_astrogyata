@@ -38,6 +38,11 @@ export class AddBookEvent extends Component {
       editorState: EditorState.createEmpty(),
       selectedFile: undefined,
       selectedName: "",
+      productImg: "",
+      productPrice: "",
+      productName: "",
+      details: "",
+      inputlist: { firstName: "", lastName: "" },
     };
     this.state = {
       pujaN: [],
@@ -70,6 +75,29 @@ export class AddBookEvent extends Component {
         reject(error);
       });
     });
+  };
+
+  // handle input change
+  handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...this.state.inputlist];
+    list[index][name] = value;
+    this.setState.inputlist(list);
+  };
+
+  // handle click event of the Remove button
+  handleRemoveClick = (index) => {
+    const list = [...this.state.inputlist];
+    list.splice(index, 1);
+    this.setState.inputlist(list);
+  };
+
+  // handle click event of the Add button
+  handleAddClick = () => {
+    this.setState.inputlist([
+      ...this.state.inputlist,
+      { firstName: "", lastName: "" },
+    ]);
   };
 
   onEditorStateChange = (editorState) => {
@@ -305,6 +333,22 @@ export class AddBookEvent extends Component {
                     onChange={this.changeHandler}
                   ></Input>
                 </Col>
+                <Col lg="12" md="3" sm="3" className="mb-2">
+                  <Label>Price</Label>
+                  <Input
+                    required
+                    type="text"
+                    name="city"
+                    placeholder="Enter City"
+                    value={this.state.city}
+                    onChange={this.changeHandler}
+                  ></Input>
+                </Col>
+                {this.state.inputlist?.map((x, i) => (
+                  <Col lg="12" md="12" sm="12">
+                    <h2 style={{ backgroundColor: "red" }}>smile</h2>
+                  </Col>
+                ))}
                 <Col lg="12" md="12" sm="12" className="mb-2">
                   <Label>About puja</Label>
                   <br />
@@ -326,6 +370,36 @@ export class AddBookEvent extends Component {
                     }}
                   />
                 </Col>
+                {/* <Col lg="3" md="3" sm="3" className="mb-2">
+                  <Label>Image</Label>
+                  <CustomInput
+                    type="file"
+                    // multiple
+                    onChange={this.onChangeHandler}
+                  />
+                </Col> */}
+                {/* <Col lg="3" md="3" sm="3" className="mb-2">
+                  <Label>ProductName</Label>
+                  <Input
+                    required
+                    type="text"
+                    name="city"
+                    placeholder="Enter City"
+                    value={this.state.city}
+                    onChange={this.changeHandler}
+                  ></Input>
+                </Col>
+                <Col lg="3" md="3" sm="3" className="mb-2">
+                  <Label>Price</Label>
+                  <Input
+                    required
+                    type="text"
+                    name="city"
+                    placeholder="Enter City"
+                    value={this.state.city}
+                    onChange={this.changeHandler}
+                  ></Input>
+                </Col> */}
               </Row>
 
               <Row>

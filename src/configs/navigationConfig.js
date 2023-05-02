@@ -478,6 +478,14 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/app/report/payoutlist",
   },
+  {
+    id: "socialmedia",
+    title: "Social Media",
+    type: "item",
+    icon: <Icon.DollarSign size={20} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/media/socialmedia",
+  },
 
   {
     id: "transaction",
