@@ -34,8 +34,6 @@ export class AddEvent extends Component {
       .post("/admin/add_poojaList", this.state)
 
       .then((response) => {
-        console.log(response.data);
-
         swal("Success!", "Submitted SuccessFull!", "success");
         this.props.history.push("/app/event/addEvent/eventList");
       })
